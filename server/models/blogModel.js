@@ -11,21 +11,17 @@ const blogSchema = new mongoose.Schema({
   },
   desc: {
     type: String,
-    required: true,
   },
   img: {
     type: String,
-    required: true,
   },
-  date: {
-    type: String,
-    required: true,
-  },
+
   subCategory: {
     type: String,
     required: true,
   },
 });
 
-const Blog = mongoose.model.Blog || ("Blog", blogSchema);
-export default Blog;
+const blogModel = mongoose.model("Blog", blogSchema);
+
+export default blogModel;
