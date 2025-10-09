@@ -1,7 +1,7 @@
-import userrouter from "../models/userModel.js";
+import userModel from "../models/userModel.js";
 import pkg from "jsonwebtoken";
 const { sign } = pkg;
-const { signup, login, findById } = userrouter;
+const { signup, login, findById } = userModel;
 const createToken = (_id) => {
   return sign({ _id }, process.env.SECRET, { expiresIn: "1d" });
 };
