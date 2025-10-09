@@ -1,4 +1,5 @@
 import blogModel from "../models/blogModel.js";
+import mongoose from "mongoose";
 
 export const createBlog = async (req, res) => {
   try {
@@ -40,42 +41,52 @@ export const getBlogs = async (req, res) => {
 
 export const updateBlog = async (req, res) => {
   try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid blog ID" });
+    }
+
     const { name, title, desc, img, subCategory } = req.body;
 
-    const newBlog = await blogModel.updateOne({
-      name,
-      title,
-      desc,
-      img,
-      subCategory,
-    });
+    const updatedBlog = await blogModel.findByIdAndUpdate(
+      id,
+      { name, title, desc, img, subCategory },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedBlog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
 
     res
-      .status(201)
-      .json({ message: "Blog data updated successfully", blog: newBlog });
+      .status(200)
+      .json({ message: "Blog updated successfully", blog: updatedBlog });
   } catch (error) {
-    console.error("Error updating blog:", error);
-    res.status(500).json({ error: "Failed to update blog data" });
+    console.error("Update error:", error);
+    res.status(500).json({ error: "Failed to update blog" });
   }
 };
 
 export const deleteBlog = async (req, res) => {
   try {
-    const { name, title, desc, img, subCategory } = req.body;
+    const { id } = req.params;
 
-    const newBlog = await blogModel.deleteOne({
-      name,
-      title,
-      desc,
-      img,
-      subCategory,
-    });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid blog ID" });
+    }
+
+    const deletedBlog = await blogModel.findByIdAndDelete(id);
+
+    if (!deletedBlog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
 
     res
-      .status(201)
-      .json({ message: "Blog data deleted successfully", blog: newBlog });
+      .status(200)
+      .json({ message: "Blog deleted successfully", blog: deletedBlog });
   } catch (error) {
-    console.error("Error deleting blog:", error);
-    res.status(500).json({ error: "Failed to delete blog data" });
+    console.error("Delete error:", error);
+    res.status(500).json({ error: "Failed to delete blog" });
   }
 };
