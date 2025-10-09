@@ -1,34 +1,44 @@
 import userModel from "../models/userModel.js";
-import pkg from "jsonwebtoken";
-const { sign } = pkg;
-const { signup, login, findById } = userModel;
-const createToken = (_id) => {
-  return sign({ _id }, process.env.SECRET, { expiresIn: "1d" });
+
+const signupUser = async (req, res) => {
+  const { email, password, name, PhoneNumber } = req.body;
+
+  try {
+    if (!email || !password || !name || !PhoneNumber) {
+      return res.status(400).json({ error: "Incomplete Data" });
+    }
+
+    const user = await userModel.signup(email, password, name, PhoneNumber);
+
+    res.status(200).json({
+      message: "Signup successful",
+      user_id: user._id,
+      name: user.name,
+      email: user.email,
+      PhoneNumber: user.PhoneNumber,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await userModel.signup(email, password);
-    const token = createToken(user._id);
-    const user_id = user._id;
+    if (!email || !password) {
+      return res.status(400).json({ error: "All fields must be filled" });
+    }
 
-    res.status(200).json({ email, token, user_id });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+    const user = await userModel.login(email, password);
 
-const signupUser = async (req, res) => {
-  const { email, password, name, PhoneNumber } = req.body;
-
-  try {
-    const user = await userModel.signup(email, password, name, PhoneNumber);
-
-    const token = createToken(user._id);
-    const user_id = user._id;
-    res.status(200).json({ email, token, user_id });
+    res.status(200).json({
+      message: "Login successful",
+      user_id: user._id,
+      name: user.name,
+      email: user.email,
+      PhoneNumber: user.PhoneNumber,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -36,12 +46,21 @@ const signupUser = async (req, res) => {
 
 const getUserDetailsWithId = async (req, res) => {
   const { id } = req.params;
-  const user_data = await findById(id);
-  console.log(user_data);
-  res.status(200).json({
-    name: user_data.name,
-    email: user_data.email,
-    PhoneNumber: user_data.PhoneNumber,
-  });
+
+  try {
+    const user = await userModel.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({
+      name: user.name,
+      email: user.email,
+      PhoneNumber: user.PhoneNumber,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
-export { loginUser, signupUser, getUserDetailsWithId };
+
+export { signupUser, loginUser, getUserDetailsWithId };

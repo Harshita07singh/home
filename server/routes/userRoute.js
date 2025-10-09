@@ -11,6 +11,6 @@ userrouter.post("/login", loginUser);
 
 userrouter.post("/register", signupUser);
 
-userrouter.get("/:id", getUserDetailsWithId);
+userrouter.get("/users/:id", getUserDetailsWithId);
 
 export default userrouter;
