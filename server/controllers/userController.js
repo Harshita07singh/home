@@ -10,8 +10,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await login(email, password);
-
+    const user = await userModel.signup(email, password);
     const token = createToken(user._id);
     const user_id = user._id;
 
@@ -25,7 +24,7 @@ const signupUser = async (req, res) => {
   const { email, password, name, PhoneNumber } = req.body;
 
   try {
-    const user = await signup(email, password, name, PhoneNumber);
+    const user = await userModel.signup(email, password, name, PhoneNumber);
 
     const token = createToken(user._id);
     const user_id = user._id;
