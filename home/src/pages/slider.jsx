@@ -3,8 +3,12 @@ import two from '../assets/images/two.png'
 import three from '../assets/images/three.png'
 // import four from '../assets/images/four.png'
 import five from '../assets/images/five.png'
+import { useAuthContext } from "../hooks/useAuthContext";
 
-const slider = () => {
+
+
+const Slider = () => {
+  const { user } = useAuthContext();
   return (
     <div>
       <div className="slider-area style-five d-flex align-items-center">
@@ -59,9 +63,16 @@ const slider = () => {
                   }}
                 >
                   {" "}
-                  <a href="#">
-                    <i className="fa fa-user" aria-hidden="true" /> Sign up Now
-                  </a>{" "}
+                   
+                <div>
+                   
+      {!user && (
+        <a href="/signup">
+          <i className="fa fa-user" aria-hidden="true" /> Sign up Now
+        </a>
+      )}
+    </div>
+
                 </div>
                 <div
                   className="slider-btn wow fadeInUp"
@@ -139,4 +150,4 @@ const slider = () => {
   )
 }
 
-export default slider
+export default Slider

@@ -3,7 +3,7 @@ import blog2 from '../assets/images/blog2.jpg';
 import blog3 from '../assets/images/blog3.jpg';
 import xIcon from '../assets/images/x-2.png';
 
-// import { assets } from '../assets/frontend_assets/assets'
+
 
 const blog = () => {
   return (
@@ -147,7 +147,7 @@ const blog = () => {
     </div>
     <div className="d-flex m-auto justify-content-center ">
       <a
-        href="#blog"
+        href="/blogPage"
         className=" "
         style={{
           background: "#1e53a1",
