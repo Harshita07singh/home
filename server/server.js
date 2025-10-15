@@ -15,6 +15,12 @@ connectDB();
 app.use(express.json());
 app.use(cors());
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use("/api", blogRoutes);
 app.use("/api/user", userrouter);
 app.use("/api/wallet", walletRoutes);

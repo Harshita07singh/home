@@ -186,7 +186,7 @@ const Whyxpo = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="col-lg-3 col-md-6">
                 <div className="single-token-box">
                   <div className="token-thumb">
@@ -206,7 +206,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">3.98%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Cloud Trader", "@CLDT")
@@ -237,7 +237,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">3.36%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Zhangdang", "@ZHND")
@@ -268,7 +268,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">3.05%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Super Crypto", "@SUCP")
@@ -310,7 +310,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">3.11%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Diamond FX Index", "@DIMX")
@@ -341,7 +341,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">4.53%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Moscow Mule", "@MSMU")
@@ -372,7 +372,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">4.09%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("BYK Capital", "@BCAP")
@@ -403,7 +403,7 @@ const Whyxpo = () => {
                       {" "}
                       <a href="#">4.22%</a>
                       <div className="pt-2 tsize">Weekly Growth</div>
-                       <button
+                      <button
                         className="btn btn-primary mt-3"
                         onClick={() =>
                           handlePurchaseClick("Halloween Trade", "@HATRD")
@@ -498,8 +498,8 @@ const Whyxpo = () => {
                   <label>Enter Amount:</label>
                   <input
                     type="number"
-                    className="form-control"
                     value={amount}
+                    className=" w-full px-3 py-2 border rounded mb-4 text-black"
                     onChange={(e) => setAmount(e.target.value)}
                   />
                   <div className="mt-3">

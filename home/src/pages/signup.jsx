@@ -3,7 +3,6 @@ import sign from "../assets/images/regis.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = "http://localhost:4000/api/user";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -11,7 +10,7 @@ const Signup = () => {
     PhoneNumber: "",
     password: "",
   });
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,26 +20,25 @@ const Signup = () => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-  try {
-    const response = await axios.post(`${BASE_URL}/register`, {
-      name: formData.name,
-      email: formData.email,
-      PhoneNumber: formData.PhoneNumber,
-      password: formData.password,
-    });
-    const userId = response.data.user_id;
-    console.log("User ID:", userId);
+    try {
+      const BASE_URL = "http://localhost:4000/api/user/";
+      const response = await axios.post(`${BASE_URL}/register`, {
+        name: formData.name,
+        email: formData.email,
+        PhoneNumber: formData.PhoneNumber,
+        password: formData.password,
+      });
+      const userId = response.data.user_id;
+      console.log("User ID:", userId);
 
-    console.log("Signup successful:", response.data);
+      console.log("Signup successful:", response.data);
 
-    
-    alert("Account created successfully!");
-    navigate("/login"); 
-    
-  } catch (error) {
-    console.error("Signup failed:", error.response?.data || error.message);
-    alert("Signup failed. Please try again.");
-  }
+      alert("Account created successfully!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup failed:", error.response?.data || error.message);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
@@ -53,14 +51,19 @@ const Signup = () => {
             alt="Signup Visual"
             className="h-40% w-40% object-cover"
           />
-           <h4 className="text-1xl mt-3  mb-6 text-gray-500 text-center">XPO is a leading online trading platform, providing users with access to global financial markets. 
-              With intuitive features and expert support, XPO empowers traders to achieve their investment goals.</h4>
+          <h4 className="text-1xl mt-3  mb-6 text-gray-500 text-center">
+            XPO is a leading online trading platform, providing users with
+            access to global financial markets. With intuitive features and
+            expert support, XPO empowers traders to achieve their investment
+            goals.
+          </h4>
         </div>
-        
 
         {/* Form Section */}
         <div className="md:w-1/2 p-8">
-          <h2 className="text-2xl font-bold mb-4 text-indigo-600 text-center">Create an Account</h2>
+          <h2 className="text-2xl font-bold mb-4 text-indigo-600 text-center">
+            Create an Account
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-7">
             <input
               type="text"
@@ -80,7 +83,7 @@ const Signup = () => {
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
               required
             />
-                <input
+            <input
               type="number"
               name="PhoneNumber"
               placeholder="Phone Number"
@@ -90,7 +93,7 @@ const Signup = () => {
               required
             />
 
-              <input
+            <input
               type="password"
               name="password"
               placeholder="Password"

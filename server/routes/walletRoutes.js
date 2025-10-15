@@ -1,16 +1,18 @@
 import express from "express";
 import {
+  createWallet,
+  depositFunds,
+  withdrawFunds,
   getWallet,
-  deposit,
-  withdraw,
+  getTransactionHistory,
 } from "../controllers/walletController.js";
-import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
-router.use(requireAuth);
 
-router.get("/", getWallet);
-router.post("/deposit", deposit);
-router.post("/withdraw", withdraw);
+router.post("/create", createWallet);
+router.post("/deposit", depositFunds);
+router.post("/withdraw", withdrawFunds);
+router.get("/:userId", getWallet);
+router.get("/transactions/:userId", getTransactionHistory);
 
 export default router;

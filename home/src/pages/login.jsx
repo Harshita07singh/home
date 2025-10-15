@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import loginimg from "../assets/images/login.png";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 
@@ -18,19 +18,17 @@ const Login = () => {
     console.log("Login submitted:", formData);
 
     try {
-      // Optionally use your custom hook
       await login(formData.email, formData.password);
+      const BASE_URL = "http://localhost:4000/api/user";
+      const response = await axios.post(`${BASE_URL}/login`, {
+        email: formData.email,
+        password: formData.password,
+      });
 
-      // Or use axios directly
-      // const response = await axios.post(`${BASE_URL}/login`, {
-      //   email: formData.email,
-      //   password: formData.password,
-      // });
+      console.log("Login success:", response.data);
+      localStorage.setItem("user_id", response.data.user_id);
+      localStorage.setItem("email", response.data.email);
 
-      // const userId = response.data.user_id;
-      // console.log("User ID:", userId);
-
-      // localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
@@ -39,7 +37,6 @@ const Login = () => {
   };
 
   return (
-
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
         {/* Image Section */}
@@ -93,8 +90,10 @@ const Login = () => {
           </p>
 
           <h4 className="text-1xl mt-3 mb-6 text-gray-500 text-center">
-            XPO is a leading online trading platform, providing users with access to global financial markets.
-            With intuitive features and expert support, XPO empowers traders to achieve their investment goals.
+            XPO is a leading online trading platform, providing users with
+            access to global financial markets. With intuitive features and
+            expert support, XPO empowers traders to achieve their investment
+            goals.
           </h4>
         </div>
       </div>
@@ -103,4 +102,3 @@ const Login = () => {
 };
 
 export default Login;
-  
